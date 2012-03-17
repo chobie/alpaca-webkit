@@ -171,7 +171,7 @@ class Browser
      * @param array $args
      * @return mixed the result
      */
-    protected function command($command, $args = array())
+    public function command($command, $args = array())
     {
         //"#" . $command . PHP_EOL;
 

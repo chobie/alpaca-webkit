@@ -36,7 +36,11 @@ class Webkit
      */
     public function find($query)
     {
-        $this->browser->find($query);
+        $result = array();
+        foreach($this->browser->find($query) as $native) {
+            $result[] = new Webkit\Node($this, $native);
+        }
+        return $result;
     }
 
     public function source()
@@ -123,5 +127,13 @@ class Webkit
     public function cookies()
     {
 
+    }
+
+    /**
+     * @return Webkit\Browser
+     */
+    public function getBrowser()
+    {
+        return $this->browser;
     }
 }
