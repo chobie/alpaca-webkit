@@ -14,6 +14,11 @@ class Node
         $this->native = $native;
     }
 
+    public function set($value)
+    {
+        return $this->invoke("set",$value);
+    }
+
     public function find($xpath)
     {
         return $this->invoke("findWithin",$xpath);

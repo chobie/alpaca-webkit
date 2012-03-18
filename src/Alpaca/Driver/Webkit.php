@@ -43,6 +43,40 @@ class Webkit
         return $result;
     }
 
+    public function fillIn($name, $value)
+    {
+        $result = $this->find("//input[@name='{$name}']");
+        if (count($result)) {
+            $result[0]->set($value);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public function clickLink($title)
+    {
+        $result = $this->find("//a[text()=\"{$title}\"]");
+        if (count($result)) {
+            $result[0]->click();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function clickButton($value)
+    {
+        $result = $this->find("//input[@value=\"{$value}\"]");
+        if (count($result)) {
+            $result[0]->click();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function source()
     {
         return $this->browser->source();

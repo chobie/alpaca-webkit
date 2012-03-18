@@ -114,7 +114,12 @@ class Browser
      */
     public function find($query)
     {
-        return explode(",",$this->command("Find",array($query)));
+        $ret = $this->command("Find",array($query));
+        if (empty($ret)) {
+            return array();
+        }
+
+        return explode(",", $ret);
     }
 
     /**
