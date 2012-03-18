@@ -60,6 +60,7 @@ class Webkit
         foreach($this->browser->find($query) as $native) {
             $result[] = new Webkit\Node($this, $native);
         }
+
         return $result;
     }
 
@@ -72,13 +73,23 @@ class Webkit
      */
     public function fillIn($name, $value)
     {
-        $result = $this->find("//input[@name='{$name}']");
-        if (count($result)) {
-            $result[0]->set($value);
-            return true;
-        } else {
-            return false;
+        $ops = array(
+            "//input[@name='{$name}']",
+            "//input[@id='{$name}']",
+            "//textarea[@name='{$name}']",
+            "//textarea[@id='{$name}']",
+        );
+
+        foreach ($ops as $op) {
+            $result = $this->find($op);
+            if (count($result)) {
+                $result[0]->set($value);
+                return true;
+            } else {
+                continue;
+            }
         }
+        return false;
     }
 
 
@@ -225,8 +236,9 @@ class Webkit
         try {
             $func();
         } catch (\Exception $e) {
-
+            throw $e;
         }
+
         $this->browser->frameFocus();
     }
 
@@ -259,19 +271,19 @@ class Webkit
     }
 
     /**
-     * @todo
+     * @return int port number
      */
-    public function serverPort()
+    public function getServerPort()
     {
-
+        return $this->browser->getPort();
     }
 
     /**
-     * @todo
+     * @return array cookies
      */
-    public function cookies()
+    public function getCookies()
     {
-
+        return $this->browser->getCookies();
     }
 
     /**

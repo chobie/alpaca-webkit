@@ -12,6 +12,17 @@ class Browser
     /* @var resource proc_opened process*/
     protected $process;
 
+
+    /**
+     * return current server port
+     *
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
     public function __construct($options = array())
     {
         $this->startServer();
