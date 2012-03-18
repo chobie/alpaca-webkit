@@ -8,7 +8,13 @@ class Webkit
     /* @var Webkit\Browser */
     protected $browser;
 
-    public function __construct($app, $options = array())
+    /**
+     * create webkit browser instance
+     *
+     * @param $app
+     * @param array $options
+     */
+    public function __construct($app = null, $options = array())
     {
         $this->app = $app;
         if (isset($options['browser'])) {
@@ -20,19 +26,33 @@ class Webkit
         }
     }
 
+
+    /**
+     * return current url
+     *
+     * @return string
+     */
     public function currentUrl()
     {
         return $this->browser->currentUrl();
     }
 
+    /**
+     * visit specified url.
+     *
+     * @param $path
+     * @return void
+     */
     public function visit($path)
     {
         $this->browser->visit($path);
     }
 
     /**
-     * @todo implement correctly
+     * find node with xpath
+     *
      * @param $query
+     * @return array
      */
     public function find($query)
     {
@@ -43,6 +63,13 @@ class Webkit
         return $result;
     }
 
+    /**
+     * find the element and set value
+     *
+     * @param $name input tag name or id
+     * @param $value
+     * @return bool
+     */
     public function fillIn($name, $value)
     {
         $result = $this->find("//input[@name='{$name}']");
@@ -55,6 +82,12 @@ class Webkit
     }
 
 
+    /**
+     * click link with specified text node
+     *
+     * @param $title
+     * @return bool
+     */
     public function clickLink($title)
     {
         $result = $this->find("//a[text()=\"{$title}\"]");
@@ -66,6 +99,12 @@ class Webkit
         }
     }
 
+    /**
+     * click button with specified value
+     *
+     * @param $value
+     * @return bool
+     */
     public function clickButton($value)
     {
         $result = $this->find("//input[@value=\"{$value}\"]");
@@ -77,26 +116,57 @@ class Webkit
         }
     }
 
+
+    /**
+     * return current source code
+     *
+     * @return string
+     */
     public function source()
     {
         return $this->browser->source();
     }
 
+    /**
+     * return current body
+     *
+     * @return string
+     */
     public function body()
     {
         return $this->browser->body();
     }
 
+    /**
+     * set header
+     *
+     * @param $key
+     * @param $value
+     */
     public function setHeader($key, $value)
     {
         $this->browser->setHeader($key,$value);
     }
 
+    /**
+     * evaluate specified javascript on current frame.
+     *
+     * this method will return json array
+     *
+     * @param $script
+     * @return mixed
+     */
     public function evaluateScript($script)
     {
         return $this->browser->evaluateScript($script);
     }
 
+    /**
+     * execute specified javascript on current frame
+     *
+     * @param $script
+     * @return mixed
+     */
     public function executeScript($script)
     {
         $value = $this->browser->executeScript($script);
@@ -105,6 +175,12 @@ class Webkit
         }
     }
 
+
+    /**
+     * probably this method will obtain console.log() message.
+     *
+     * @return array
+     */
     public function consoleMessage()
     {
         return $this->browser->consoleMessage();
@@ -115,16 +191,34 @@ class Webkit
         //return $this->browser->errorMessage();
     }
 
+    /**
+     * obtain current response headers.
+     *
+     * @return mixed
+     */
     public function responseHeaders()
     {
         return $this->responseHeaders();
     }
 
+    /**
+     * obtain current http status
+     *
+     * @return int
+     */
     public function statusCode()
     {
         return $this->browser->statusCode();
     }
 
+    /**
+     * find and execute php function with found scope
+     *
+     * @todo implement correctly
+     *
+     * @param $frame_id_or_index
+     * @param $func
+     */
     public function withinFrame($frame_id_or_index, $func)
     {
         $this->browser->frameFocus($frame_id_or_index);
@@ -136,11 +230,22 @@ class Webkit
         $this->browser->frameFocus();
     }
 
+    /**
+     * reset webkit browser
+     *
+     * @return void
+     */
     function reset()
     {
         $this->browser->reset();
     }
 
+    /**
+     * render current frame image
+     *
+     * @param $path
+     * @param array $options width and height parameters are required.
+     */
     public function render($path, $options = array())
     {
         if (!isset($options['width'])) {
@@ -153,11 +258,17 @@ class Webkit
         $this->browser->render($path, $options['width'], $options['height']);
     }
 
+    /**
+     * @todo
+     */
     public function serverPort()
     {
 
     }
 
+    /**
+     * @todo
+     */
     public function cookies()
     {
 
