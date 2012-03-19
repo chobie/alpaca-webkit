@@ -1,0 +1,20 @@
+{
+    "name": "alpaca/webkit",
+    "type": "library",
+    "description": "webkit driver for alpaca",
+    "keywords": ["alpaca","webkit","capybara"],
+    "homepage": "http://github.com/chobie/alpaca-webkit",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shuhei Tanuma",
+            "email": "chobieee@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {"Alpaca": "src/"}
+    }
+}

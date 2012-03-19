@@ -1,7 +1,7 @@
 <?php
 namespace Alpaca\Driver;
 
-class Webkit
+class Webkit implements Base
 {
     protected $app;
 
@@ -17,22 +17,23 @@ class Webkit
     public function __construct($app = null, $options = array())
     {
         $this->app = $app;
+        $options = array_merge(array('ignore_ssl_errors'=>true), $options);
+
         if (isset($options['browser'])) {
             $this->browser = $options['browser'];
         } else {
             $this->browser = new \Alpaca\Driver\Webkit\Browser(array(
-                "ignore_ssl_errors" => $options['ignore_sssl_errors']
+                "ignore_ssl_errors" => $options['ignore_ssl_errors']
             ));
         }
     }
-
 
     /**
      * return current url
      *
      * @return string
      */
-    public function currentUrl()
+    public function getCurrentUrl()
     {
         return $this->browser->currentUrl();
     }
@@ -133,7 +134,7 @@ class Webkit
      *
      * @return string
      */
-    public function source()
+    public function getSource()
     {
         return $this->browser->source();
     }
@@ -143,7 +144,7 @@ class Webkit
      *
      * @return string
      */
-    public function body()
+    public function getBody()
     {
         return $this->browser->body();
     }
@@ -192,13 +193,14 @@ class Webkit
      *
      * @return array
      */
-    public function consoleMessage()
+    public function getConsoleMessage()
     {
         return $this->browser->consoleMessage();
     }
 
-    public function errorMessage()
+    public function getErrorMessage()
     {
+        throw new \Alpaca\UnsupprotedException();
         //return $this->browser->errorMessage();
     }
 
@@ -207,7 +209,7 @@ class Webkit
      *
      * @return mixed
      */
-    public function responseHeaders()
+    public function getResponseHeaders()
     {
         return $this->responseHeaders();
     }
@@ -217,7 +219,7 @@ class Webkit
      *
      * @return int
      */
-    public function statusCode()
+    public function getStatusCode()
     {
         return $this->browser->statusCode();
     }
@@ -293,4 +295,25 @@ class Webkit
     {
         return $this->browser;
     }
+
+    public function check($name)
+    {
+        throw new \Alpaca\UnsupprotedException();
+    }
+
+    public function uncheck($name)
+    {
+        throw new \Alpaca\UnsupprotedException();
+    }
+
+    public function attachFile($name, $path)
+    {
+        throw new \Alpaca\UnsupprotedException();
+    }
+
+    public function select($value, $select_box)
+    {
+        throw new \Alpaca\UnsupprotedException();
+    }
+
 }
